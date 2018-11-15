@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 
+import { HeaderModule } from './header/header.module';
 import { TodosRoutingModule } from './todos-routing.module';
+
 import { TodosComponent } from './todos.component';
 
 @NgModule({
@@ -8,6 +10,7 @@ import { TodosComponent } from './todos.component';
     TodosComponent
   ],
   imports: [
+    HeaderModule,
     TodosRoutingModule
   ],
 })

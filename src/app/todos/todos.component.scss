@@ -7,23 +7,13 @@
   align-items: center;
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .todos {
   width: 70%;
   height: 70%;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
-  &-header {
-    width: 100%;
-    padding: 20px;
-    border-bottom: 1px solid black;
-  }
+
   &-main {
     width: 100%;
     height: 100%;
