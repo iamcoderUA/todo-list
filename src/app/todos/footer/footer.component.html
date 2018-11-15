@@ -1,3 +1,30 @@
 <footer class="todos-footer flex">
-  Footer
+  <nav class="nav">
+    <ul class="nav-list flex">
+      <li class="nav-list__item">
+        <a class="nav-list__link" role="link" aria-label="all-items"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/">
+          All
+        </a>
+      </li>
+      <li class="nav-list__item">
+        <a class="nav-list__link" role="link" aria-label="active-items"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/active">
+          Active
+        </a>
+      </li>
+      <li class="nav-list__item">
+        <a class="nav-list__link" role="link" aria-label="completed items"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/completed">
+          Completed
+        </a>
+      </li>
+    </ul>
+  </nav>
 </footer>
