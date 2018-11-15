@@ -50,3 +50,11 @@ input {
   height: 45px;
   font-size: 45px;
 }
+
+// global adjustment styles
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
