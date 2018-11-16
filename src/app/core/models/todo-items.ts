@@ -1,6 +1,6 @@
 export class TodoItemsModel {
   id: number = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
-  title: '';
+  title = '';
   complete = false;
 
   constructor(obj?: any) {
