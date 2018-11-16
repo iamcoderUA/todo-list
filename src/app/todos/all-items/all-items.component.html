@@ -1,3 +1,8 @@
-<p>
-  all-items works
-</p>
+<div class="todos-all">
+  <ul class="todos-all__list">
+    <li class="todos-all__item" *ngFor="let item of todoItems; let i = index">
+      <span>{{i + 1}}. </span>
+      <span>{{item.title}}</span>
+    </li>
+  </ul>
+</div>
