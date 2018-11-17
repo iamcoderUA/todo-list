@@ -28,7 +28,11 @@ export class TodoItemsComponent implements OnInit {
     this.complete = this.route.snapshot.data['complete'];
   }
 
-  deleteTodoItem(id) {
+  toggleTodoItemComplete(id: number) {
+    this.todoItemsService.toggleTodoItemComplete(id);
+  }
+
+  deleteTodoItem(id: number) {
     this.todoItemsService.deleteTodoItemById(id);
   }
 }
