@@ -3,5 +3,18 @@
     width: 100%;
     padding: 20px;
     border-bottom: 1px solid black;
+    &__form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    &__add {
+      width: 50%;
+      font-size: 25px;
+      text-align: center;
+      border: 1px solid black;
+      padding: 5px 20px;
+      border-radius: 5px;
+    }
   }
 }

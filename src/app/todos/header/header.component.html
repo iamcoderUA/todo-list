@@ -1,3 +1,8 @@
 <header class="todos-header flex">
-  Header
+  <form class="todos-header__form">
+    <input class="todos-header__add" type="text" placeholder="What needs to be done?" name="newItem"
+     [(ngModel)]="newTodoItem.title"
+     (keyup.enter)="addTodoItem()"
+    >
+  </form>
 </header>

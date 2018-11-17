@@ -11,7 +11,7 @@ export class TodoItemsService {
   todoItems: TodoItemsModel[] = TODO_ITEMS;
 
   toggleTodoItemComplete(id: number) {
-    return this.todoItems = this.todoItems.map(item => {
+    this.todoItems = this.todoItems.map(item => {
       if (item.id === id) {
         item.complete = !item.complete;
       }
@@ -19,7 +19,11 @@ export class TodoItemsService {
     });
   }
 
+  addTodoItem(newTodoItem: TodoItemsModel[]) {
+    this.todoItems = [...this.todoItems, ...newTodoItem];
+  }
+
   deleteTodoItemById(id: number) {
-    return this.todoItems = this.todoItems.filter(item => id !== item.id);
+    this.todoItems = this.todoItems.filter(item => id !== item.id);
   }
 }
