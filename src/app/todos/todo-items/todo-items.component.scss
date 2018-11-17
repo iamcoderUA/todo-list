@@ -9,6 +9,15 @@
         margin-bottom: 0;
       }
     }
+    &__title {
+      display: flex;
+      align-items: center;
+    }
+    &__checkbox {
+      height: auto;
+      margin-right: 10px;
+      cursor: pointer;
+    }
     &__delete {
       padding: 5px 20px;
       cursor: pointer;
