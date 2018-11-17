@@ -10,8 +10,8 @@ import { TODO_ITEMS } from '../mock/mock-todo-items';
 export class TodoItemsService {
   todoItems: TodoItemsModel[] = TODO_ITEMS;
 
-  getAllTodoItems() {
-    return this.todoItems;
+  deleteTodoItemById(id) {
+    return this.todoItems = this.todoItems.filter(item => id !== item.id);
   }
 }
 
