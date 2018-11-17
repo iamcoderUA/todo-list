@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
@@ -12,13 +13,16 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 export class TodoItemsComponent implements OnInit {
 
   todoItems: TodoItemsModel[];
+  complete: boolean;
 
   constructor(
     private todoItemsService: TodoItemsService,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
     this.todoItems = this.todoItemsService.todoItems;
+    this.complete = this.route.snapshot.data['complete'];
   }
 }

@@ -5,8 +5,8 @@ import { TodoItemsComponent } from './todo-items.component';
 
 const todoItemsRoutes: Routes = [
   { path: '', component: TodoItemsComponent},
-  { path: 'active', component: TodoItemsComponent},
-  { path: 'completed', component: TodoItemsComponent}
+  { path: 'active', component: TodoItemsComponent, data: {complete: false}},
+  { path: 'completed', component: TodoItemsComponent, data: {complete: true}}
 ];
 
 @NgModule({
