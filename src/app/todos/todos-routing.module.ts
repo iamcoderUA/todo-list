@@ -1,28 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ActiveItemsComponent } from './active-items/active-items.component';
-import { AllItemsComponent } from './all-items/all-items.component';
-import { CompletedItemsComponent } from './completed-items/completed-items.component';
-
 import { TodosComponent } from './todos.component';
 
 
-const routes: Routes = [
+const todosRoutes: Routes = [
   {
     path: '',
     component: TodosComponent,
     children:
     [
-       { path: '', component: AllItemsComponent},
-       { path: 'active', component: ActiveItemsComponent},
-       { path: 'completed', component: CompletedItemsComponent}
+      { path: '', loadChildren: './todo-items/todo-items.module#TodoItemsModule' },
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(todosRoutes)],
   exports: [RouterModule]
 })
 export class TodosRoutingModule {
