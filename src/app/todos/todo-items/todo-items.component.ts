@@ -22,7 +22,7 @@ export class TodoItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todoItems = this.todoItemsService.todoItems;
+    this.todoItems = this.todoItemsService.getAllTodoItems();
     this.complete = this.route.snapshot.data['complete'];
   }
 }

@@ -9,5 +9,9 @@ import { TODO_ITEMS } from '../mock/mock-todo-items';
 })
 export class TodoItemsService {
   todoItems: TodoItemsModel[] = TODO_ITEMS;
+
+  getAllTodoItems() {
+    return this.todoItems;
+  }
 }
 
