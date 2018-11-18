@@ -22,30 +22,42 @@ export class TodoItemsService {
     this.fetchTodoItems();
   }
 
-  toggleTodoItemComplete(id: number) {
-    this.todoItems = this.todoItems.map(item => {
-      if (item.id === id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
-  }
-
   fetchTodoItems() {
     return this.http.get<TodoItemsModel[]>(this.todoItemsUrl)
       .pipe(
         retry(1),
         catchError(this.handleError)
       )
-      .subscribe(items => this.todoItems = items);
+      .subscribe(items => this.todoItems = [...items]);
   }
 
-  addTodoItem(newTodoItem: TodoItemsModel[]) {
-    this.todoItems = [...this.todoItems, ...newTodoItem];
+  addTodoItem(newTodoItem: TodoItemsModel) {
+    return this.http.post<TodoItemsModel>(this.todoItemsUrl, newTodoItem)
+      .pipe(
+        catchError(this.handleError)
+      )
+      .subscribe(item => this.todoItems = [...this.todoItems, item]);
+  }
+
+  toggleTodoItemComplete(id: number) {
+    const todoItemToEdit: TodoItemsModel = this.todoItems.find(item => id === item.id);
+    this.http.put<TodoItemsModel>(`${this.todoItemsUrl}/${id}`, {...todoItemToEdit, complete: !todoItemToEdit.complete})
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+      .subscribe((todoItem: TodoItemsModel) => this.todoItems = this.todoItems.map(item =>
+        item.id === todoItem.id ? todoItem : item)
+      );
   }
 
   deleteTodoItemById(id: number) {
-    this.todoItems = this.todoItems.filter(item => id !== item.id);
+    return this.http.delete<TodoItemsModel>(`${this.todoItemsUrl}/${id}`)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+      .subscribe(item => this.todoItems = this.todoItems.filter(todoItem => id !== todoItem.id));
   }
 
   private handleError(error: HttpErrorResponse) {
