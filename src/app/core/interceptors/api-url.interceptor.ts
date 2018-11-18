@@ -12,13 +12,15 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError, retry } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
     const apiUrl = req.clone({
-      url: req.url.replace('', 'http://localhost:3000/')
+      url: req.url.replace('', `${environment.apiUrl}`)
     });
     return next.handle(apiUrl).pipe(
       retry(1),
