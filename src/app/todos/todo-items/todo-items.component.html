@@ -1,6 +1,6 @@
 <div class="todos-items">
   <ul class="todos-items__list">
-    <li class="todos-items__item" *ngFor="let item of (todoItems | FilterTodoItems: complete); let i = index">
+    <li class="todos-items__item" *ngFor="let item of ((todoItems$ | async) | FilterTodoItems: complete); let i = index">
       <div class="todos-items__title">
         <input class="todos-items__checkbox" type="checkbox"
           (click)="toggleTodoItemComplete(item.id)"

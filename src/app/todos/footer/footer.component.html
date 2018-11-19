@@ -1,5 +1,5 @@
 <footer class="todos-footer">
-  <div class="todos-footer__counter">{{(todoItems)?.length}} items left</div>
+  <div class="todos-footer__counter">{{(todoItems$ | async)?.length}} items left</div>
   <nav class="nav">
     <ul class="nav-list flex">
       <li class="nav-list__item">

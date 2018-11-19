@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { Observable } from 'rxjs/internal/Observable';
+
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
 import { TodoItemsModel } from '../../core/models/todo-items';
@@ -13,6 +15,7 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 export class TodoItemsComponent implements OnInit {
 
   complete: boolean;
+  todoItems$: Observable<TodoItemsModel[]>;
 
   constructor(
     private todoItemsService: TodoItemsService,
@@ -20,19 +23,16 @@ export class TodoItemsComponent implements OnInit {
   ) {
   }
 
-  get todoItems () {
-    return this.todoItemsService.todoItems as TodoItemsModel[];
-  }
-
   ngOnInit() {
     this.complete = this.route.snapshot.data['complete'];
+    this.todoItems$ = this.todoItemsService.todoItems$;
   }
 
   toggleTodoItemComplete(id: number) {
-    this.todoItemsService.toggleTodoItemComplete(id);
+    this.todoItemsService.toggleTodoItemComplete$.next(id);
   }
 
   deleteTodoItem(id: number) {
-    this.todoItemsService.deleteTodoItemById(id);
+    this.todoItemsService.deleteByItemId$.next(id);
   }
 }
