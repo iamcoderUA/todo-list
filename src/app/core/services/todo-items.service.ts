@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { Subject } from 'rxjs/internal/Subject';
 import { mapTo, switchMap, withLatestFrom } from 'rxjs/operators';
 
@@ -13,11 +14,11 @@ import { TodoItemsModel } from '../models/todo-items';
 })
 export class TodoItemsService {
 
-  todoItems$: BehaviorSubject<TodoItemsModel[]> = new BehaviorSubject([]);
+  todoItems$: ReplaySubject<TodoItemsModel[]> = new ReplaySubject(1);
   fetchTodoItems$: BehaviorSubject<any> = new BehaviorSubject([]);
-  addTodoItem$: Subject<any> = new Subject();
-  toggleTodoItemComplete$: Subject<any> = new Subject();
-  deleteByItemId$: Subject<any> = new Subject();
+  addTodoItem$: Subject<TodoItemsModel> = new Subject();
+  toggleTodoItemComplete$: Subject<number> = new Subject();
+  deleteByItemId$: Subject<number> = new Subject();
 
   constructor(
     private http: HttpClient

@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { map } from 'rxjs/operators';
 
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
 import { TodoItemsModel } from '../../core/models/todo-items';
+
 
 @Component({
   selector: 'app-todo-items',
@@ -14,7 +17,6 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 })
 export class TodoItemsComponent implements OnInit {
 
-  complete: boolean;
   todoItems$: Observable<TodoItemsModel[]>;
 
   constructor(
@@ -24,8 +26,13 @@ export class TodoItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.complete = this.route.snapshot.data['complete'];
-    this.todoItems$ = this.todoItemsService.todoItems$;
+    this.todoItems$ = combineLatest(
+      this.route.data,
+      this.todoItemsService.todoItems$,
+    ).pipe(
+      map(([routeData, todoItems]) =>
+        todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete)
+    ));
   }
 
   toggleTodoItemComplete(id: number) {
