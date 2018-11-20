@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TodosComponent } from './todos.component';
+import { TodoItemsResolver } from '../core/resolvers/todo-items-resolver.service';
 
+import { TodosComponent } from './todos.component';
 
 const todosRoutes: Routes = [
   {
@@ -11,7 +12,8 @@ const todosRoutes: Routes = [
     children:
     [
       { path: '', loadChildren: './todo-items/todo-items.module#TodoItemsModule' },
-    ]
+    ],
+    resolve: {todoItems: TodoItemsResolver}
   }
 ];
 
