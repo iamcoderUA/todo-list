@@ -57,4 +57,16 @@ export class TodoItemsService {
   fetchTodoItems() {
     this.fetchTodoItems$.next();
   }
+
+  addTodoItem(newTodoItem: TodoItemsModel) {
+    this.addTodoItem$.next(newTodoItem);
+  }
+
+  toggleTodoItemComplete(id: number) {
+    this.toggleTodoItemComplete$.next(id);
+  }
+
+  deleteTodoItem(id: number) {
+    this.deleteByItemId$.next(id);
+  }
 }

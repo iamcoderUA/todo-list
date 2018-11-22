@@ -36,10 +36,10 @@ export class TodoItemsComponent implements OnInit {
   }
 
   toggleTodoItemComplete(id: number) {
-    this.todoItemsService.toggleTodoItemComplete$.next(id);
+    this.todoItemsService.toggleTodoItemComplete(id);
   }
 
   deleteTodoItem(id: number) {
-    this.todoItemsService.deleteByItemId$.next(id);
+    this.todoItemsService.deleteTodoItem(id);
   }
 }

@@ -19,7 +19,7 @@ export class HeaderComponent {
 
   addTodoItem() {
     if (this.newTodoItem.title) {
-      this.todoItemsService.addTodoItem$.next(this.newTodoItem);
+      this.todoItemsService.addTodoItem(this.newTodoItem);
       this.newTodoItem = new TodoItemsModel();
     }
   }
