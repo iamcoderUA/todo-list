@@ -1,4 +1,4 @@
-import { State } from '@ngxs/store';
+import {Selector, State} from '@ngxs/store';
 
 import { TodoItemsModel } from '../../core/models/todo-items';
 
@@ -18,4 +18,14 @@ export interface TodoItemsStateModel {
   }
 })
 export class TodoItemsState {
+
+  @Selector()
+  static getTodoItems(state: TodoItemsStateModel) {
+    return state.todoItemsIds.map(id => state.todoItems[id]);
+  }
+
+  @Selector()
+  static getTodoItemsIdsCount(state: TodoItemsStateModel) {
+    return state.todoItemsIds.length;
+  }
 }
