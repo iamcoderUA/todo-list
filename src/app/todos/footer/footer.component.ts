@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
-import { TodoItemsModel } from '../../core/models/todo-items';
-
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -13,7 +11,7 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 })
 export class FooterComponent implements OnInit {
 
-  todoItems$: Observable<TodoItemsModel[]>;
+  todoItemsCount$: Observable<number>;
 
   constructor(
     private todoItemsService: TodoItemsService,
@@ -21,7 +19,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todoItems$ = this.todoItemsService.todoItems$;
+    this.todoItemsCount$ = this.todoItemsService.todoItemsCount$;
   }
 }
 
