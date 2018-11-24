@@ -23,11 +23,11 @@ export class TodoItemsRequestsService {
     return this.http.post<TodoItemsModel>('todo-items', newTodoItem);
   }
 
-  toggleTodoItemComplete(id: number) {
-    return this.http.put<TodoItemsModel>(`todo-items/${id}`, {});
+  toggleTodoItemComplete(todoItem: TodoItemsModel) {
+    return this.http.put<TodoItemsModel>(`todo-items/${todoItem.id}`, todoItem);
   }
 
   deleteTodoItem(id: number) {
-    this.http.delete<TodoItemsModel>(`todo-items/${id}`);
+    return this.http.delete<TodoItemsModel>(`todo-items/${id}`);
   }
 }
