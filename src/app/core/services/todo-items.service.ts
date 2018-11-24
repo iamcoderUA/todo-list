@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { FetchTodoItems } from '../../ngxs/todo-items/todo-items.actions';
+import {
+  AddTodoItem,
+  DeleteTodoItem,
+  FetchTodoItems,
+  ToggleTodoItemComplete
+} from '../../ngxs/todo-items/todo-items.actions';
 import { TodoItemsState } from '../../ngxs/todo-items/todo-items.state';
 
 import { TodoItemsModel } from '../models/todo-items';
@@ -26,11 +31,14 @@ export class TodoItemsService {
   }
 
   addTodoItem(newTodoItem: TodoItemsModel) {
+    this.store.dispatch(new AddTodoItem(newTodoItem));
   }
 
   toggleTodoItemComplete(id: number) {
+    this.store.dispatch(new ToggleTodoItemComplete(id));
   }
 
   deleteTodoItem(id: number) {
+    this.store.dispatch(new DeleteTodoItem(id));
   }
 }
