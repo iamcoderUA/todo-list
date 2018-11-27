@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/internal/Observable';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { map } from 'rxjs/operators';
 
@@ -18,6 +20,7 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 export class TodoItemsComponent implements OnInit {
 
   todoItems$: Observable<TodoItemsModel[]>;
+  todoItemsEmptyArrayError$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(
     private todoItemsService: TodoItemsService,
@@ -30,8 +33,12 @@ export class TodoItemsComponent implements OnInit {
       this.route.data,
       this.todoItemsService.todoItems$,
     ).pipe(
-      map(([routeData, todoItems]) =>
-        todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete)
+      map(([routeData, todoItems]) => {
+        return !todoItems.length ?
+          this.todoItemsEmptyArrayError$.next('There\'s nothing to do')
+          :
+          todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete);
+      }
     ));
   }
 

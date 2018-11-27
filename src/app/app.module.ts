@@ -11,7 +11,6 @@ import { TodoItemsState } from './ngxs/todo-items/todo-items.state';
 
 import { AppComponent } from './app.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
