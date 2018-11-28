@@ -6,7 +6,6 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 import { TodoItemsRequestsService } from '../../core/services/todo-items-requests.service';
 
 import * as todoItemsActions from './todo-items.actions';
-import {throwError} from 'rxjs/internal/observable/throwError';
 
 
 export interface TodoItemsStateModel {
@@ -78,7 +77,7 @@ export class TodoItemsState {
   }
 
   @Action(todoItemsActions.AddTodoItemSuccess)
-  addTodoItemSuccessfully(
+  addTodoItemSuccess(
     ctx: StateContext<TodoItemsStateModel>,
     {payload: todoItem}: todoItemsActions.AddTodoItemSuccess
   ) {
@@ -103,7 +102,7 @@ export class TodoItemsState {
   }
 
   @Action(todoItemsActions.DeleteTodoItemSuccess)
-  deleteTodoItemSuccessfully(
+  deleteTodoItemSuccess(
     ctx: StateContext<TodoItemsStateModel>,
     {payload: id}: todoItemsActions.DeleteTodoItemSuccess
   ) {
@@ -126,7 +125,7 @@ export class TodoItemsState {
   }
 
   @Action(todoItemsActions.ToggleTodoItemCompleteSuccess)
-  toggleTodoItemSuccessfully(
+  toggleTodoItemSuccess(
     ctx: StateContext<TodoItemsStateModel>,
     {payload: editedTodoItem}: todoItemsActions.ToggleTodoItemCompleteSuccess
   ) {

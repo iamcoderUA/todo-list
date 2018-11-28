@@ -34,10 +34,10 @@ export class TodoItemsComponent implements OnInit {
       this.todoItemsService.todoItems$,
     ).pipe(
       map(([routeData, todoItems]) => {
-        return !todoItems.length ?
+        if (!todoItems.length) {
           this.todoItemsEmptyArrayError$.next('There\'s nothing to do')
-          :
-          todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete);
+        }
+        return todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete);
       }
     ));
   }
