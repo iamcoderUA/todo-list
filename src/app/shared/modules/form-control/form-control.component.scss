@@ -1,0 +1,18 @@
+:host ::ng-deep {
+  .validate-error {
+    .form-input {
+      box-shadow: 0 2px 4px 0 rgba(255,117,117,0.5) !important;
+    }
+    .form-error {
+      display: none;
+      color: red;
+      margin: 5px 5px -17px;
+      font-size: 10px;
+      text-align: left;
+      &.show-error:first-child {
+        display: block;
+      }
+    }
+  }
+}
+
