@@ -28,7 +28,7 @@ export class TodoItemsResolver implements Resolve<any> {
       ofActionDispatched(FetchTodoItemSuccess, FetchTodoItemFail),
       map(action => {
         if (action instanceof FetchTodoItemFail) {
-          this.router.navigate(['home']);
+          this.router.navigate(['auth']);
           return false;
         }
         return true;
