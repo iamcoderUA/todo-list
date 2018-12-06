@@ -1,0 +1,37 @@
+<div class="auth">
+    <div class="auth-form">
+        <form class="form" [formGroup]="form" (submit)="onSubmit()">
+
+            <div class="form-row">
+                <app-form-control
+                    [errors]="errors.email"
+                    [markAsDirty]="showErrorsIfSubmitted"
+                    [control]="emailControl">
+                    <div class="form-input">
+                        <input [formControl]="emailControl" type="text" placeholder="Email"/>
+                    </div>
+                </app-form-control>
+            </div>
+
+            <div class="form-row">
+                <app-form-control
+                    [errors]="errors.password"
+                    [markAsDirty]="showErrorsIfSubmitted"
+                    [control]="passwordControl">
+                    <div class="form-input">
+                        <input [formControl]="passwordControl" type="password" placeholder="Password"/>
+                    </div>
+                </app-form-control>
+            </div>
+
+            <button class="form-submit" [disabled]="isBusy">
+                <ng-container *ngIf="!isBusy">Log in</ng-container>
+                <ng-container *ngIf="isBusy">Logging in, please wait...</ng-container>
+            </button>
+        </form>
+    </div>
+    <div class="wrapper-bottom">
+        DO NOT HAVE AN ACCOUNT?
+        <a routerLink="/auth/signup">SIGN UP</a>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="auth">
+    <div class="auth-form">
+        <form class="form" [formGroup]="form" (submit)="onSubmit()">
+
+            <div class="form-row">
+                <app-form-control
+                        [errors]="errors.fullName"
+                        [markAsDirty]="showErrorsIfSubmitted"
+                        [control]="fullNameControl">
+                    <div class="form-input">
+                        <input [formControl]="fullNameControl" type="text" placeholder="Full Name"/>
+                    </div>
+                </app-form-control>
+            </div>
+
+            <div class="form-row">
+                <app-form-control
+                        [errors]="errors.email"
+                        [markAsDirty]="showErrorsIfSubmitted"
+                        [control]="emailControl">
+                    <div class="form-input">
+                        <input [formControl]="emailControl" type="text" placeholder="Email"/>
+                    </div>
+                </app-form-control>
+            </div>
+
+            <div class="form-row">
+                <app-form-control
+                        [errors]="errors.password"
+                        [markAsDirty]="showErrorsIfSubmitted"
+                        [control]="passwordControl">
+                    <div class="form-input">
+                        <input [formControl]="passwordControl" type="password" placeholder="Password"/>
+                    </div>
+                </app-form-control>
+            </div>
+            <div class="form-row">
+                <app-form-control
+                        [errors]="errors.confirmPassword"
+                        [markAsDirty]="showErrorsIfSubmitted"
+                        [control]="confirmPasswordControl">
+                    <div class="form-input">
+                        <input [formControl]="confirmPasswordControl" type="password" placeholder="Confirm Password"/>
+                    </div>
+                </app-form-control>
+            </div>
+
+            <button class="form-submit" [disabled]="isBusy">
+                <ng-container *ngIf="!isBusy">Sign up</ng-container>
+                <ng-container *ngIf="isBusy">Signing up, please wait...</ng-container>
+            </button>
+        </form>
+    </div>
+    <div class="wrapper-bottom">
+        ALREADY HAVE AN ACCOUNT?
+        <a routerLink="/auth/login">LOG IN</a>
+    </div>
+</div>

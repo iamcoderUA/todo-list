@@ -1,13 +1,24 @@
 :host ::ng-deep {
+  .input {
+    position: relative;
+  }
   .validate-error {
+    &.input {
+      position: relative;
+    }
     .form-input {
       box-shadow: 0 2px 4px 0 rgba(255,117,117,0.5) !important;
+    }
+    & .errors {
+      display: block;
+      position: absolute;
+      bottom: -23px;
+      left: 5px;
     }
     .form-error {
       display: none;
       color: red;
-      margin: 5px 5px -17px;
-      font-size: 10px;
+      font-size: 11px;
       text-align: left;
       &.show-error:first-child {
         display: block;

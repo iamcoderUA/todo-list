@@ -10,6 +10,7 @@ import { UserModel } from '../models/user';
   providedIn: 'root',
 })
 export class AuthService {
+
   authToken$: Observable<string>;
   isGuest$: Observable<boolean>;
 
@@ -20,6 +21,9 @@ export class AuthService {
 
   login(userData) {
     return this.httpClient.post<UserModel>('auth/login', userData);
+  }
+
+  signUp(userData) {
   }
 
   getAuthUser() {
