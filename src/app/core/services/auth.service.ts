@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
+import { Select, Store } from '@ngxs/store';
+
+import { LoginAction } from '../../ngxs/auth/auth.actions';
+
+import { AuthGetterState } from '../../ngxs/auth';
 import { UserModel } from '../models/user';
 
 @Injectable({
@@ -11,16 +18,24 @@ import { UserModel } from '../models/user';
 })
 export class AuthService {
 
-  authToken$: Observable<string>;
-  isGuest$: Observable<boolean>;
+  @Select(AuthGetterState.getToken) authToken$: Observable<string>;
+  isGuest$: Observable<boolean> = this.store.select(state => state.auth.isGuest).pipe(
+    filter(isGuest => isGuest !== null),
+  );
 
   constructor(
     private httpClient: HttpClient,
+    private store: Store,
+    private router: Router,
   ) {
   }
 
   login(userData) {
-    return this.httpClient.post<UserModel>('auth/login', userData);
+    this.store.dispatch(new LoginAction(userData));
+  }
+
+  loginRequest(userData) {
+    return this.httpClient.post<string>('auth/login', userData);
   }
 
   signUp(userData) {

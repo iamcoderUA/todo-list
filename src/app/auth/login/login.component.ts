@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { Observable } from 'rxjs/internal/Observable';
+
 import { AuthService } from '../../core/services/auth.service';
+import { SpinnerService } from '../../core/services/spinner.service';
 
 import { environment } from '../../../environments/environment';
 import { VALIDATION } from '../../core/constants/validation.const';
@@ -15,12 +18,13 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   showErrorsIfSubmitted: boolean;
-  isBusy = false; // TODO: remove after NGXS
+  isLoading$: Observable<boolean>; // TODO: remove after NGXS
   errors: any;
 
   constructor(
     @Inject(VALIDATION) public validation,
     private authService: AuthService,
+    private spinnerService: SpinnerService,
   ) {
   }
 
@@ -32,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading$ = this.spinnerService.isLoading$;
     this.showErrorsIfSubmitted = false;
     this.setErrors();
     this.form = new FormGroup({

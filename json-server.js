@@ -23,7 +23,7 @@ function createToken(payload){
 }
 // Verify the token
 function verifyToken(token){
-    return  jwt.verify(token, SECRET_KEY, (err, decode) => decode !== undefined ?  decode : err)
+    return jwt.verify(token, SECRET_KEY, (err, decode) => decode !== undefined ?  decode : err)
 }
 // Check if the user exists in database
 function isAuthenticated({email, password}){
@@ -53,7 +53,8 @@ server.get('/auth/user', (req, res) => {
 
 // Protect other routes
 server.use(/^(?!\/auth).*$/,  (req, res, next) => {
-    if (req.headers.authorization === undefined || req.headers.authorization.split(' ')[0] !== 'Bearer') {
+    console.log(req.headers)
+    if ((req.headers.authorization.split(' ')[1] === 'null') || req.headers.authorization.split(' ')[0] !== 'Bearer') {
         const status = 401;
         const message = 'Bad authorization header';
         res.status(status).json({status, message});

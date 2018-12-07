@@ -24,10 +24,7 @@
                 </app-form-control>
             </div>
 
-            <button class="form-submit" [disabled]="isBusy">
-                <ng-container *ngIf="!isBusy">Log in</ng-container>
-                <ng-container *ngIf="isBusy">Logging in, please wait...</ng-container>
-            </button>
+            <button class="form-submit" [disabled]="form.invalid">Log in</button>
         </form>
     </div>
     <div class="wrapper-bottom">

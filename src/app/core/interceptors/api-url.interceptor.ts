@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 
 import {
   HttpErrorResponse,
@@ -8,22 +8,35 @@ import {
   HttpRequest
 } from '@angular/common/http';
 
+import { Store } from '@ngxs/store';
+
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+
+import { AuthState } from '../../ngxs/auth';
+
+import { AuthService } from '../services/auth.service';
 
 import { environment } from '../../../environments/environment';
+
 
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
 
+  constructor(
+    private authService: AuthService,
+    private store: Store,
+  ) {
+  }
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
+    const token = this.store.selectSnapshot<string>(state => state.auth.token);
     const apiUrl = req.clone({
-      url: req.url.replace('', `${environment.apiUrl}`)
+      url: req.url.replace('', `${environment.apiUrl}`),
+      setHeaders: { Authorization: `Bearer ${token}` },
     });
     return next.handle(apiUrl).pipe(
-      retry(1),
       catchError(this.handleError)
     );
   }
