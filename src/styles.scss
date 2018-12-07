@@ -58,3 +58,53 @@ input {
   justify-content: center;
   align-items: center;
 }
+
+// loader
+@keyframes rotateLoader {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  width: 150px;
+  height: 150px;
+  display: block;
+  overflow: visible;
+  will-change: transform;
+  opacity: 1;
+}
+
+.loader div {
+  height: 100%;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid transparent;
+  animation: rotateLoader linear 3.5s infinite;
+  border-top-color: #FF8D40;
+  border-left-color: blueviolet;
+  animation-timing-function: cubic-bezier(.55, .38, .21, .88);
+  animation-duration: 3s;
+  will-change: transform;
+}
