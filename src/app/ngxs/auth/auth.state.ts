@@ -5,6 +5,8 @@ import { Action, NgxsOnInit, State, StateContext, Store } from '@ngxs/store';
 
 import { LoginRequestAction } from '../requests/auth/login/login-request.actions';
 
+import { SessionService } from '../../core/services/session.service';
+
 import {
   CheckTokenOnInitAction,
   ClearTokenAction,
@@ -12,6 +14,7 @@ import {
   LoginSuccessAction,
   SetTokenAction,
 } from './auth.actions';
+
 
 export interface AuthStateModel {
   isGuest: boolean;
@@ -32,6 +35,7 @@ export class AuthState implements NgxsOnInit {
     private store: Store,
     private router: Router,
     private ngZone: NgZone,
+    private sessionService: SessionService,
   ) {
   }
 
@@ -41,15 +45,17 @@ export class AuthState implements NgxsOnInit {
 
   @Action(CheckTokenOnInitAction)
   checkToken(ctx: StateContext<AuthStateModel>, action: CheckTokenOnInitAction) {
-    // TODO: get from cookie
+    const token = this.sessionService.getSessionToken();
+    ctx.dispatch(token ? new SetTokenAction(token) : new ClearTokenAction());
   }
 
   @Action(SetTokenAction)
   setToken(ctx: StateContext<AuthStateModel>, action: SetTokenAction) {
     ctx.patchState({
-      token: action.payload['access_token'],
+      token: action.payload,
       isGuest: false,
     });
+    this.sessionService.setSessionToken(action.payload);
     this.ngZone.run(() => this.router.navigate(['todo-items'])).then();
   }
 
@@ -59,6 +65,7 @@ export class AuthState implements NgxsOnInit {
       token: null,
       isGuest: true,
     });
+    this.sessionService.removeSessionToken();
   }
 
   @Action(LoginAction)
@@ -69,7 +76,7 @@ export class AuthState implements NgxsOnInit {
   @Action(LoginSuccessAction)
   loginSuccess(ctx: StateContext<AuthStateModel>, action: LoginSuccessAction) {
     return ctx.dispatch([
-      new SetTokenAction(action.payload),
+      new SetTokenAction(action.payload['access_token']),
     ]);
   }
 }

@@ -14,8 +14,6 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError } from 'rxjs/operators';
 
-import { AuthState } from '../../ngxs/auth';
-
 import { AuthService } from '../services/auth.service';
 
 import { environment } from '../../../environments/environment';
@@ -47,7 +45,7 @@ export class NoopInterceptor implements HttpInterceptor {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.message}`);
     }
     return throwError('Something bad happened; please try again later');
   }

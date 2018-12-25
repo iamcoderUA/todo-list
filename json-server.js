@@ -53,8 +53,7 @@ server.get('/auth/user', (req, res) => {
 
 // Protect other routes
 server.use(/^(?!\/auth).*$/,  (req, res, next) => {
-    console.log(req.headers)
-    if ((req.headers.authorization.split(' ')[1] === 'null') || req.headers.authorization.split(' ')[0] !== 'Bearer') {
+    if ((req.headers.authorization.split(' ')[1] === 'undefined') || req.headers.authorization.split(' ')[0] !== 'Bearer') {
         const status = 401;
         const message = 'Bad authorization header';
         res.status(status).json({status, message});

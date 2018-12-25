@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs/internal/Observable';
-
 import { AuthService } from '../../core/services/auth.service';
-import { SpinnerService } from '../../core/services/spinner.service';
 
 import { environment } from '../../../environments/environment';
 import { VALIDATION } from '../../core/constants/validation.const';
@@ -18,13 +15,11 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   showErrorsIfSubmitted: boolean;
-  isLoading$: Observable<boolean>; // TODO: remove after NGXS
   errors: any;
 
   constructor(
-    @Inject(VALIDATION) public validation,
+    @Inject(VALIDATION) private validation,
     private authService: AuthService,
-    private spinnerService: SpinnerService,
   ) {
   }
 
@@ -36,7 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoading$ = this.spinnerService.isLoading$;
     this.showErrorsIfSubmitted = false;
     this.setErrors();
     this.form = new FormGroup({
@@ -45,7 +39,6 @@ export class LoginComponent implements OnInit {
           Validators.required,
           Validators.pattern(this.validation.email.pattern),
         ],
-        updateOn: 'blur',
       }),
       password: new FormControl(environment.production ? '' : 'St_123456789', {
         validators: [
@@ -53,7 +46,6 @@ export class LoginComponent implements OnInit {
           Validators.minLength(this.validation.password.minlength),
           Validators.pattern(this.validation.password.pattern),
         ],
-        updateOn: 'blur',
       }),
     });
   }

@@ -27,7 +27,7 @@ export class TodoItemsService {
   }
 
   fetchTodoItems() {
-    this.store.dispatch(new FetchTodoItems());
+    return this.store.dispatch(new FetchTodoItems());
   }
 
   addTodoItem(newTodoItem: TodoItemsModel) {

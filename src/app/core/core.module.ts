@@ -1,7 +1,9 @@
-import {NgModule, Optional, SkipSelf} from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Error } from 'tslint/lib/error';
+
+import { CookieService } from 'angular2-cookie/core';
 
 import { NgxsStoreModule } from '../ngxs/ngxs.module';
 
@@ -14,7 +16,7 @@ import { VALIDATION, VALIDATION_VALUE } from './constants/validation.const';
   imports: [
     HttpClientModule,
     NgxsStoreModule,
-    LoaderModule
+    LoaderModule,
   ],
   providers: [
     HTTP_INTERCEPTOR_PROVIDERS,
@@ -22,6 +24,7 @@ import { VALIDATION, VALIDATION_VALUE } from './constants/validation.const';
       provide: VALIDATION,
       useValue: VALIDATION_VALUE,
     },
+    CookieService,
   ],
   exports: [
     LoaderModule,

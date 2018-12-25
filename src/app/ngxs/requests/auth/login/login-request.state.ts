@@ -67,6 +67,6 @@ export class LoginRequestState {
       status: 'fail',
       data: action.payload,
     });
-    ctx.dispatch(new LoginFailAction(action.payload.errors));
+    ctx.dispatch(new LoginFailAction(action.payload));
   }
 }
