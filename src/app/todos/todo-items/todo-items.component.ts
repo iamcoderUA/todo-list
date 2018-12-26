@@ -35,7 +35,7 @@ export class TodoItemsComponent implements OnInit {
     ).pipe(
       map(([routeData, todoItems]) => {
         if (!todoItems.length) {
-          this.todoItemsEmptyArrayError$.next('There\'s nothing to do')
+          this.todoItemsEmptyArrayError$.next('There\'s nothing to do');
         }
         return todoItems.filter(item => routeData.complete === undefined || routeData.complete === item.complete);
       }

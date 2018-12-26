@@ -5,7 +5,7 @@
             <div class="form-row">
                 <app-form-control
                     [errors]="errors.email"
-                    [markAsDirty]="showErrorsIfSubmitted"
+                    [markAsDirty]="showErrorsIfSubmitted | async"
                     [control]="emailControl">
                     <div class="form-input">
                         <input [formControl]="emailControl" type="text" placeholder="Email"/>
@@ -16,7 +16,7 @@
             <div class="form-row">
                 <app-form-control
                     [errors]="errors.password"
-                    [markAsDirty]="showErrorsIfSubmitted"
+                    [markAsDirty]="showErrorsIfSubmitted | async"
                     [control]="passwordControl">
                     <div class="form-input">
                         <input [formControl]="passwordControl" type="password" placeholder="Password"/>

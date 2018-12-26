@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { BehaviorSubject } from 'rxjs';
+
 import { AuthService } from '../../core/services/auth.service';
 
 import { environment } from '../../../environments/environment';
@@ -14,8 +16,11 @@ import { VALIDATION } from '../../core/constants/validation.const';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  showErrorsIfSubmitted: boolean;
-  errors: any;
+  showErrorsIfSubmitted: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  errors: {
+    email: {name: string, text: string}[],
+    password: {name: string, text: string}[],
+  };
 
   constructor(
     @Inject(VALIDATION) private validation,
@@ -31,7 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showErrorsIfSubmitted = false;
     this.setErrors();
     this.form = new FormGroup({
       email: new FormControl(environment.production ? '' : 'stan@email.com', {
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showErrorsIfSubmitted = true;
+    this.showErrorsIfSubmitted.next(true);
     if (this.form.invalid) {
       return;
     }
