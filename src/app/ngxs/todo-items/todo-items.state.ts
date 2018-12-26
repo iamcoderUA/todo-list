@@ -2,7 +2,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, tap } from 'rxjs/operators';
 
-import { TodoItemsModel } from '../../core/models/todo-items';
+import { TodoItemModel } from '../../core/models/todo-item';
 import { TodoItemsRequestsService } from '../../core/services/todo-items-requests.service';
 
 import * as todoItemsActions from './todo-items.actions';
@@ -11,7 +11,7 @@ import * as todoItemsActions from './todo-items.actions';
 export interface TodoItemsStateModel {
   entities:
     {
-      [id: number]: TodoItemsModel
+      [id: number]: TodoItemModel
     };
   ids: number[];
 }

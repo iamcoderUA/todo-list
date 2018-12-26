@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
-import { TodoItemsModel } from '../../core/models/todo-items';
+import { TodoItemModel } from '../../core/models/todo-item';
 
 
 @Component({
@@ -19,7 +19,7 @@ import { TodoItemsModel } from '../../core/models/todo-items';
 })
 export class TodoItemsComponent implements OnInit {
 
-  todoItems$: Observable<TodoItemsModel[]>;
+  todoItems$: Observable<TodoItemModel[]>;
   todoItemsEmptyArrayError$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(

@@ -1,4 +1,4 @@
-export class TodoItemsModel {
+export class TodoItemModel {
   id: number = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
   title = '';
   complete = false;

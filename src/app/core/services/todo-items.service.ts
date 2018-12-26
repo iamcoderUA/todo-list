@@ -11,14 +11,14 @@ import {
 } from '../../ngxs/todo-items/todo-items.actions';
 import { TodoItemsState } from '../../ngxs/todo-items/todo-items.state';
 
-import { TodoItemsModel } from '../models/todo-items';
+import { TodoItemModel } from '../models/todo-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoItemsService {
 
-  @Select(TodoItemsState.getTodoItems) todoItems$: Observable<TodoItemsModel[]>;
+  @Select(TodoItemsState.getTodoItems) todoItems$: Observable<TodoItemModel[]>;
   @Select(TodoItemsState.getTodoItemsIdsCount) todoItemsCount$: Observable<number>;
 
   constructor(
@@ -30,7 +30,7 @@ export class TodoItemsService {
     return this.store.dispatch(new FetchTodoItems());
   }
 
-  addTodoItem(newTodoItem: TodoItemsModel) {
+  addTodoItem(newTodoItem: TodoItemModel) {
     this.store.dispatch(new AddTodoItem(newTodoItem));
   }
 

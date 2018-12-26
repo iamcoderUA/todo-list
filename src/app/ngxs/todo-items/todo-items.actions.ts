@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { TodoItemsModel } from '../../core/models/todo-items';
+import { TodoItemModel } from '../../core/models/todo-item';
 
 export class FetchTodoItems {
   static readonly type = '[TodoItems] FetchTodoItems';
@@ -10,7 +10,7 @@ export class FetchTodoItemSuccess {
   static readonly type = '[TodoItems] FetchTodoItemsSuccess';
 
   constructor(
-    public readonly payload: TodoItemsModel[]
+    public readonly payload: TodoItemModel[]
   ) {
   }
 }
@@ -28,7 +28,7 @@ export class AddTodoItem {
   static readonly type = '[TodoItems] AddTodoItem';
 
   constructor(
-    public readonly payload: TodoItemsModel
+    public readonly payload: TodoItemModel
   ) {
   }
 }
@@ -37,7 +37,7 @@ export class AddTodoItemSuccess {
   static readonly type = '[TodoItems] AddTodoItemSuccess';
 
   constructor(
-    public readonly payload: TodoItemsModel
+    public readonly payload: TodoItemModel
   ) {
   }
 }
@@ -90,7 +90,7 @@ export class ToggleTodoItemCompleteSuccess {
   static readonly type = '[TodoItems] ToggleTodoItemCompleteSuccess';
 
   constructor(
-    public readonly payload: TodoItemsModel
+    public readonly payload: TodoItemModel
   ) {
   }
 }

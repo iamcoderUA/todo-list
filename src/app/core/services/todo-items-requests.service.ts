@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { TodoItemsModel } from '../models/todo-items';
+import { TodoItemModel } from '../models/todo-item';
 
 
 @Injectable({
@@ -16,18 +16,18 @@ export class TodoItemsRequestsService {
   }
 
   fetchTodoItems() {
-    return this.http.get<TodoItemsModel[]>('todo-items');
+    return this.http.get<TodoItemModel[]>('todo-items');
   }
 
-  addTodoItem(newTodoItem: TodoItemsModel) {
-    return this.http.post<TodoItemsModel>('todo-items', newTodoItem);
+  addTodoItem(newTodoItem: TodoItemModel) {
+    return this.http.post<TodoItemModel>('todo-items', newTodoItem);
   }
 
-  toggleTodoItemComplete(todoItem: TodoItemsModel) {
-    return this.http.put<TodoItemsModel>(`todo-items/${todoItem.id}`, todoItem);
+  toggleTodoItemComplete(todoItem: TodoItemModel) {
+    return this.http.put<TodoItemModel>(`todo-items/${todoItem.id}`, todoItem);
   }
 
   deleteTodoItem(id: number) {
-    return this.http.delete<TodoItemsModel>(`todo-items/${id}`);
+    return this.http.delete<TodoItemModel>(`todo-items/${id}`);
   }
 }

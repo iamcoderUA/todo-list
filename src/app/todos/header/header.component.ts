@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { TodoItemsModel } from '../../core/models/todo-items';
+import { TodoItemModel } from '../../core/models/todo-item';
 
 import { TodoItemsService } from '../../core/services/todo-items.service';
 
@@ -10,7 +10,7 @@ import { TodoItemsService } from '../../core/services/todo-items.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  newTodoItem: TodoItemsModel = new TodoItemsModel();
+  newTodoItem: TodoItemModel = new TodoItemModel();
 
   constructor(
     private todoItemsService: TodoItemsService,
@@ -20,7 +20,7 @@ export class HeaderComponent {
   addTodoItem() {
     if (this.newTodoItem.title) {
       this.todoItemsService.addTodoItem(this.newTodoItem);
-      this.newTodoItem = new TodoItemsModel();
+      this.newTodoItem = new TodoItemModel();
     }
   }
 }
