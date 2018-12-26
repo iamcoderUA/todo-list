@@ -66,6 +66,7 @@ export class AuthState implements NgxsOnInit {
       isGuest: true,
     });
     this.sessionService.removeSessionToken();
+    this.ngZone.run(() => this.router.navigate(['auth'])).then();
   }
 
   @Action(LoginAction)
