@@ -16,7 +16,7 @@ server.use(bodyParser.json());
 
 const SECRET_KEY = '2mc';
 const expiresIn = '1h';
-
+let access_token;
 // Create a token from a payload
 function createToken(payload) {
   return jwt.sign(payload, SECRET_KEY, {expiresIn})
@@ -44,8 +44,14 @@ server.post('/auth/login', (req, res) => {
     res.status(status).json({status, message});
     return;
   }
-  const access_token = createToken({email, password});
+  access_token = createToken({email, password});
   res.status(200).json({access_token});
+});
+
+server.post('/auth/logout', (req, res) => {
+  const {logout} = req.body;
+  access_token = null;
+  res.status(200).json({logout});
 });
 
 server.get('/auth/user', (req, res) => {

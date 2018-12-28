@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 
 import { AuthState } from './auth';
 import { LoginRequestState } from './requests/auth/login/login-request.state';
+import { LogoutRequestState } from './requests/auth/logout/logout-request.state';
 import { RequestsState } from './requests/requests.state';
 import { TodoItemsState } from './todo-items/todo-items.state';
 
@@ -19,6 +20,7 @@ import { TodoItemsState } from './todo-items/todo-items.state';
       // requests
       RequestsState,
       LoginRequestState,
+      LogoutRequestState,
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production,

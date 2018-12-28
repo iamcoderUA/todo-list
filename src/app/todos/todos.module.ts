@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { LogoutModule } from '../auth/logout/logout.module';
+
 import { FooterModule } from './footer/footer.module';
 import { HeaderModule } from './header/header.module';
 
@@ -15,6 +17,7 @@ import { TodosComponent } from './todos.component';
   ],
   imports: [
     SharedModule,
+    LogoutModule,
     FooterModule,
     HeaderModule,
     TodosRoutingModule,

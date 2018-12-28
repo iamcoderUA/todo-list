@@ -7,6 +7,8 @@ import { CookieService } from 'angular2-cookie/core';
 
 import { NgxsStoreModule } from '../ngxs/ngxs.module';
 
+import { LogoutModule } from '../auth/logout/logout.module';
+
 import { HTTP_INTERCEPTOR_PROVIDERS } from './interceptors';
 import { LoaderModule } from './loader/loader.module';
 
@@ -17,6 +19,7 @@ import { VALIDATION, VALIDATION_VALUE } from './constants/validation.const';
     HttpClientModule,
     NgxsStoreModule,
     LoaderModule,
+    LogoutModule,
   ],
   providers: [
     HTTP_INTERCEPTOR_PROVIDERS,

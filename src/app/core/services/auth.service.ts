@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
 
 import { Select, Store } from '@ngxs/store';
 
-import { ClearTokenAction, LoginAction } from '../../ngxs/auth/auth.actions';
+import { LoginAction, LogoutAction } from '../../ngxs/auth/auth.actions';
 
 import { AuthGetterState } from '../../ngxs/auth';
 import { UserModel } from '../models/user';
@@ -37,6 +37,11 @@ export class AuthService {
   }
 
   logout() {
+    this.store.dispatch(new LogoutAction({logout: true}));
+  }
+
+  logoutRequest(value: {logout: boolean}) {
+    return this.httpClient.post<{logout: boolean}>('auth/logout', value);
   }
 
   signUp(userData) {

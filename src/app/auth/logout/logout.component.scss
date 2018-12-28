@@ -1,0 +1,19 @@
+.logout {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: blueviolet;
+    border: 1px solid blueviolet;
+    & .logout__btn {
+      color: #ffffff;
+    }
+  }
+  &__btn {
+    display: inline-block;
+    padding: 7px 25px;
+  }
+}
