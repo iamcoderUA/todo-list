@@ -16,7 +16,7 @@ server.use(bodyParser.json());
 
 const SECRET_KEY = '2mc';
 const expiresIn = '1h';
-let access_token;
+let authToken;
 // Create a token from a payload
 function createToken(payload) {
   return jwt.sign(payload, SECRET_KEY, {expiresIn})
@@ -44,32 +44,36 @@ server.post('/auth/login', (req, res) => {
     res.status(status).json({status, message});
     return;
   }
-  access_token = createToken({email, password});
-  res.status(200).json({access_token});
+  authToken = createToken({email, password});
+  res.status(200).json({authToken});
 });
 
 server.post('/auth/logout', (req, res) => {
   const {logout} = req.body;
-  access_token = null;
+  authToken = null;
   res.status(200).json({logout});
 });
 
 server.get('/auth/user', (req, res) => {
   // draft
-  const user = currentUser();
-  res.status(200).json(user);
+  const token = req.headers;
+  if (token) {
+    const user = currentUser();
+    res.status(200).json(user);
+  }
 });
 
 // Protect other routes
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
-  if ((req.headers.authorization.split(' ')[1] === 'undefined') || req.headers.authorization.split(' ')[0] !== 'Bearer') {
+  const token = req.headers.authorization.split(' ')[1];
+  if ((token === 'undefined') || req.headers.authorization.split(' ')[0] !== 'Bearer') {
     const status = 401;
     const message = 'Bad authorization header';
     res.status(status).json({status, message});
     return;
   }
   try {
-    verifyToken(req.headers.authorization.split(' ')[1]);
+    verifyToken(token);
     next()
   } catch (err) {
     const status = 401;

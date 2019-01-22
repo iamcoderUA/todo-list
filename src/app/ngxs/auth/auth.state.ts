@@ -8,14 +8,17 @@ import { LogoutRequestAction } from '../requests/auth/logout/logout-request.acti
 
 import { SessionService } from '../../core/services/session.service';
 
+import { ClearSelfDataAction, LoadSelfDataAction } from '../user/user.actions';
+
 import {
-CheckTokenOnInitAction,
-ClearTokenAction,
-LoginAction,
-LoginSuccessAction,
-LogoutAction,
-LogoutSuccessAction,
-SetTokenAction,
+  CheckTokenOnInitAction,
+  ClearTokenAction,
+  LoginAction,
+  LoginSuccessAction,
+  LogoutAction,
+  LogoutSuccessAction,
+  SetTokenAction,
+  SetUserAsLoginedAction,
 } from './auth.actions';
 
 
@@ -35,9 +38,9 @@ export interface AuthStateModel {
 export class AuthState implements NgxsOnInit {
 
   constructor(
-    private store: Store,
-    private router: Router,
     private ngZone: NgZone,
+    private router: Router,
+    private store: Store,
     private sessionService: SessionService,
   ) {
   }
@@ -48,8 +51,8 @@ export class AuthState implements NgxsOnInit {
 
   @Action(CheckTokenOnInitAction)
   checkToken(ctx: StateContext<AuthStateModel>, action: CheckTokenOnInitAction) {
-    const token = this.sessionService.getSessionToken();
-    ctx.dispatch(token ? new SetTokenAction(token) : new ClearTokenAction());
+    const authToken = this.sessionService.getSessionToken();
+    ctx.dispatch(authToken ? new SetUserAsLoginedAction({authToken}) : new ClearTokenAction());
   }
 
   @Action(SetTokenAction)
@@ -59,7 +62,6 @@ export class AuthState implements NgxsOnInit {
       isGuest: false,
     });
     this.sessionService.setSessionToken(action.payload);
-    this.ngZone.run(() => this.router.navigate(['todo-items'])).then();
   }
 
   @Action(ClearTokenAction)
@@ -71,16 +73,22 @@ export class AuthState implements NgxsOnInit {
     if (action.payload) { this.sessionService.removeSessionToken(); }
   }
 
+  @Action(SetUserAsLoginedAction)
+  setUserAsLogined(ctx: StateContext<AuthStateModel>, action: SetUserAsLoginedAction) {
+    ctx.dispatch([
+      new LoadSelfDataAction(),
+      new SetTokenAction(action.payload.authToken),
+    ]);
+  }
+
   @Action(LoginAction)
   login(ctx: StateContext<AuthStateModel>, action: LoginAction) {
-    return ctx.dispatch(new LoginRequestAction(action.payload));
+    ctx.dispatch(new LoginRequestAction(action.payload));
   }
 
   @Action(LoginSuccessAction)
   loginSuccess(ctx: StateContext<AuthStateModel>, action: LoginSuccessAction) {
-    return ctx.dispatch([
-      new SetTokenAction(action.payload['access_token']),
-    ]);
+    ctx.dispatch(new SetUserAsLoginedAction(action.payload));
   }
 
   @Action(LogoutAction)
@@ -90,7 +98,10 @@ export class AuthState implements NgxsOnInit {
 
   @Action(LogoutSuccessAction)
   logoutSuccess(ctx: StateContext<AuthStateModel>, action: LogoutSuccessAction) {
+    ctx.dispatch([
+      new ClearTokenAction(action.payload.logout),
+      new ClearSelfDataAction(),
+    ]);
     this.ngZone.run(() => this.router.navigate(['auth'])).then();
-    ctx.dispatch(new ClearTokenAction(action.payload));
   }
 }

@@ -3,6 +3,8 @@ import { Selector, State } from '@ngxs/store';
 import { LoginRequestState } from './auth/login/login-request.state';
 import { LogoutRequestState } from './auth/logout/logout-request.state';
 import { IRequestsNestedState } from './requests.interface';
+import { MeRequestState } from './user/me/me-request.state';
+import { UserRequestState } from './user/user/user-request.state';
 
 
 export interface RequestsStateModel {
@@ -14,12 +16,17 @@ export interface RequestsStateModel {
   children: [
     LoginRequestState,
     LogoutRequestState,
+    UserRequestState,
+    MeRequestState,
   ],
 })
 export class RequestsState {
 
   @Selector([
     LoginRequestState,
+    LogoutRequestState,
+    UserRequestState,
+    MeRequestState,
   ])
   static loadingStatus(...states: IRequestsNestedState[]): boolean {
     return states

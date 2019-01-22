@@ -1,7 +1,7 @@
 export class UserModel {
-  readonly id: number = null;
-  authToken: string = null;
-  fullName: string = null;
+  readonly _id: string = null;
+  authToken?: string = null;
+  name: string = null;
   email: string = null;
   password: string = null;
 

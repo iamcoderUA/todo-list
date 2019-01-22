@@ -10,7 +10,6 @@ import { Select, Store } from '@ngxs/store';
 import { LoginAction, LogoutAction } from '../../ngxs/auth/auth.actions';
 
 import { AuthGetterState } from '../../ngxs/auth';
-import { UserModel } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -45,9 +44,5 @@ export class AuthService {
   }
 
   signUp(userData) {
-  }
-
-  getAuthUser() {
-    return this.httpClient.get<UserModel>('auth/user');
   }
 }

@@ -2,6 +2,7 @@ const ActionTypes = {
   CHECK_TOKEN_ON_INIT: `[Auth] Check Token On Init`,
   SET_TOKEN: `[Auth] Set Token`,
   CLEAR_TOKEN: `[Auth] Clear Token`,
+  SET_USER_AS_LOGINED: `[Auth] Set User As Logined`,
 
   LOGIN: '[Auth] Login',
   LOGIN_SUCCESS: '[Auth] Login Success',
@@ -25,16 +26,20 @@ export class CheckTokenOnInitAction {
 export class SetTokenAction {
   static type = ActionTypes.SET_TOKEN;
 
-  constructor(
-    public payload: string,
-    public redirectUrl: string[] = ['/private'],
-  ) {
+  constructor(public payload: string) {
   }
 }
 export class ClearTokenAction {
   static type = ActionTypes.CLEAR_TOKEN;
 
-  constructor(public payload?: string) {
+  constructor(public payload?: any) {
+  }
+}
+
+export class SetUserAsLoginedAction {
+  static type = ActionTypes.SET_USER_AS_LOGINED;
+
+  constructor(public payload?: any) {
   }
 }
 
